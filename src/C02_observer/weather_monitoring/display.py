@@ -16,10 +16,10 @@ class Display(Observer, DisplayElement):
 
     def display(self):
         print(f'[{self.__class__.__name__}]')
-        self.display_info()
+        self._display_info()
 
     @abstractmethod
-    def display_info():
+    def _display_info():
         pass
 
     def __del__(self):
@@ -27,7 +27,7 @@ class Display(Observer, DisplayElement):
 
 
 class CurrentConditionDisplay(Display):
-    def display_info(self):
+    def _display_info(self):
         print(
             f'- temperature: {self._current_data.temperature}\n'
             f'- humidity: {self._current_data.humidity}\n'
@@ -44,7 +44,7 @@ class StatisticsDisplay(Display):
         self._temps.append(data.temperature)
         super().update(data)
 
-    def display_info(self):
+    def _display_info(self):
         max_temp = max(self._temps)
         min_temp = min(self._temps)
         avg_temp = sum(self._temps) / len(self._temps)
@@ -53,9 +53,6 @@ class StatisticsDisplay(Display):
             f'- min temperature: {min_temp}\n'
             f'- avg temperature: {avg_temp}\n'
         )
-
-    def reset(self):
-        self._temps = []
 
 
 class ForecastDisplay(Display):
@@ -69,7 +66,7 @@ class ForecastDisplay(Display):
         self._curr_pressure = data.pressure
         super().update(data)
 
-    def display_info(self):
+    def _display_info(self):
         if self._curr_pressure > self._prev_pressure:
             print('Improving weather on the way!\n')
         elif self._curr_pressure == self._prev_pressure:
@@ -81,13 +78,13 @@ class ForecastDisplay(Display):
 
 
 class HeatIndexDisplay(Display):
-    def display_info(self):
+    def _display_info(self):
         t = self._current_data.temperature
         rh = self._current_data.humidity
-        index = self.compute_heat_index(t, rh)
+        index = self.__compute_heat_index(t, rh)
         print(f'Heat index: {index:.2f}\n')
 
-    def compute_heat_index(self, t, rh):
+    def __compute_heat_index(self, t, rh):
         return (
             (
                 16.923 + (0.185212 * t) + (5.37941 * rh) - (0.100254 * t * rh)
