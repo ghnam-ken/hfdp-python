@@ -31,11 +31,11 @@ class Duck(metaclass=ABCMeta):
         return self._fly_behavior
 
     @quack_behavior.setter
-    def quack_behavior(self, quack_behavior):
+    def quack_behavior(self, quack_behavior: QuackBehavior):
         self._quack_behavior = quack_behavior
 
     @fly_behavior.setter
-    def fly_behavior(self, fly_behavior):
+    def fly_behavior(self, fly_behavior: FlyBehavior):
         self._fly_behavior = fly_behavior
 
     @abstractmethod
