@@ -78,3 +78,26 @@ class ForecastDisplay(Display):
             print('Watch out for cooler, rainy weather\n')
         else:
             print('No forecast available\n')
+
+
+class HeatIndexDisplay(Display):
+    def display_info(self):
+        t = self._current_data.temperature
+        rh = self._current_data.humidity
+        index = self.compute_heat_index(t, rh)
+        print(f'Heat index: {index:.2f}\n')
+
+    def compute_heat_index(self, t, rh):
+        return (
+            (
+                16.923 + (0.185212 * t) + (5.37941 * rh) - (0.100254 * t * rh)
+                + (0.00941695 * (t * t)) + (0.00728898 * (rh * rh))
+                + (0.000345372 * (t * t * rh)) - (0.000814971 * (t * rh * rh))
+                + (0.0000102102 * (t * t * rh * rh)) - (0.000038646 * (t * t * t))
+                + (0.0000291583 * (rh * rh * rh)) + (0.00000142721 * (t * t * t * rh))
+                + (0.000000197483 * (t * rh * rh * rh))
+                - (0.0000000218429 * (t * t * t * rh * rh))
+                + 0.000000000843296 * (t * t * rh * rh * rh)
+            )
+            - (0.0000000000481975 * (t * t * t * rh * rh * rh))
+        )

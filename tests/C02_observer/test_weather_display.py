@@ -6,6 +6,7 @@ from C02_observer.weather_monitoring.display import (
     CurrentConditionDisplay,
     StatisticsDisplay,
     ForecastDisplay,
+    HeatIndexDisplay,
 )
 from C02_observer.weather_monitoring.weather_data import (
     WeatherData,
@@ -15,7 +16,8 @@ from C02_observer.weather_monitoring.weather_data import (
 DISPLAY_CLASSES = [
     CurrentConditionDisplay,
     StatisticsDisplay,
-    ForecastDisplay
+    ForecastDisplay,
+    HeatIndexDisplay,
 ]
 
 DATA = [
@@ -69,11 +71,23 @@ EXPECTED_FORECAST_DISPLAY = [
     "More of the same\n",
 ]
 
+EXPECTED_HEAT_INDEX_DISPLAY = [
+    "[HeatIndexDisplay]\n"
+    "Heat index: 82.96\n",
+
+    "[HeatIndexDisplay]\n"
+    "Heat index: 86.90\n",
+
+    "[HeatIndexDisplay]\n"
+    "Heat index: 83.65\n",
+]
+
 TASK = zip(
     DATA,
     EXPECTED_CURRENT_CONDITION_DISPLAY,
     EXPECTED_STATISTICS_DISPLAY,
-    EXPECTED_FORECAST_DISPLAY
+    EXPECTED_FORECAST_DISPLAY,
+    EXPECTED_HEAT_INDEX_DISPLAY,
 )
 
 
